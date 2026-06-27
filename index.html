@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Performance Analyzer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Team 6</p>
+        <h1>Student Performance Analyzer</h1>
+        <p class="intro">
+          Run <code>python app.py</code> to open the Python, pandas, and NumPy version of this dashboard.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="workflow-band">
+        <div class="upload-panel">
+          <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Upload CSV or Excel file">
+            <input id="fileInput" type="file" accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            <div class="upload-icon" aria-hidden="true">+</div>
+            <h2>Upload marksheet</h2>
+            <p>Drop a CSV or XLSX file here, or choose a file from your computer.</p>
+            <a class="primary-button link-button" href="http://127.0.0.1:8765/">Open Python App</a>
+          </div>
+
+          <div class="settings-panel">
+            <label for="riskThreshold">Risk threshold</label>
+            <div class="threshold-row">
+              <input id="riskThreshold" type="range" min="0" max="100" value="50" />
+              <output id="thresholdValue" for="riskThreshold">50%</output>
+            </div>
+            <button id="demoBtn" class="secondary-button" type="button">Load Demo Data</button>
+            <button id="resetBtn" class="ghost-button" type="button">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard" class="dashboard" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h2 id="fileTitle">Class Performance Summary</h2>
+          </div>
+          <div class="actions">
+            <button id="downloadReportBtn" class="secondary-button" type="button">Download Report</button>
+            <button id="downloadCsvBtn" class="secondary-button" type="button">Download Analyzed CSV</button>
+          </div>
+        </div>
+
+        <div id="metricGrid" class="metric-grid" aria-live="polite"></div>
+
+        <div class="insight-grid">
+          <article class="insight-block">
+            <h3>Subject Insights</h3>
+            <div id="subjectInsights" class="insight-list"></div>
+          </article>
+          <article class="insight-block">
+            <h3>Risk Analysis</h3>
+            <div id="riskInsights" class="insight-list"></div>
+          </article>
+          <article class="insight-block">
+            <h3>Executive Summary</h3>
+            <p id="executiveSummary"></p>
+          </article>
+        </div>
+
+        <div class="chart-grid">
+          <article class="chart-panel">
+            <div class="panel-heading">
+              <h3>Grade Distribution</h3>
+              <span id="gradeChartLabel"></span>
+            </div>
+            <canvas id="gradeChart" width="720" height="380"></canvas>
+          </article>
+          <article class="chart-panel">
+            <div class="panel-heading">
+              <h3>Subject Averages</h3>
+              <span id="subjectChartLabel"></span>
+            </div>
+            <canvas id="subjectChart" width="720" height="380"></canvas>
+          </article>
+        </div>
+
+        <section class="table-section">
+          <div class="panel-heading">
+            <div>
+              <h3>Student Results</h3>
+              <span id="studentCountLabel"></span>
+            </div>
+            <input id="studentSearch" type="search" placeholder="Search students" aria-label="Search students" />
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead id="studentTableHead"></thead>
+              <tbody id="studentTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="emptyState" class="empty-state">
+        <h2>What this analyzer does</h2>
+        <div class="requirement-grid">
+          <div>
+            <strong>Data ingestion</strong>
+            <span>CSV and Excel upload with drag-and-drop support.</span>
+          </div>
+          <div>
+            <strong>Calculations</strong>
+            <span>Student averages, subject averages, grades, pass rate, median, and spread.</span>
+          </div>
+          <div>
+            <strong>Insights</strong>
+            <span>Strongest and weakest subjects are detected automatically.</span>
+          </div>
+          <div>
+            <strong>Risk flags</strong>
+            <span>Students below the chosen threshold are highlighted for support.</span>
+          </div>
+          <div>
+            <strong>Reporting</strong>
+            <span>Download a visual HTML report and an analyzed CSV file.</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  </body>
+</html>
